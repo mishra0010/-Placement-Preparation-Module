@@ -1,0 +1,60 @@
+// You are given a read only array of n integers from 1 to n.
+
+// Each integer appears exactly once except A which appears twice and B which is missing.
+
+// Return A and B.
+
+// Note: Your algorithm should have a linear runtime complexity. Could you implement it without using extra memory?
+
+// Note that in your output A should precede B.
+
+// Example:
+
+// Input:[3 1 2 5 3] 
+
+// Output:[3, 4] 
+
+// A = 3, B = 4
+#include<bits/stdc++.h>
+using namespace std;
+vector<int> Solution::repeatedNumber(const vector<int> &A) {
+   
+    // Intuition -> we are firstly focus on finding out the repeating elemenet using negative indexing
+   
+    // as all the the numbers are in the range of 1 to n , so using negative indexing .
+   
+    // Now there will be one positive number , whose sign has not been changed , as it was missing no.
+   
+    // this is a good approach
+   
+    vector<int> nums = A;
+   
+    int n=nums.size();
+   
+    int repeat=-1 ,  missing =-1;
+   
+    for(int i=0;i<n;i++) // 3 1 2 5 3  ,-3
+    {
+        int v=abs(nums[i])-1;
+        if(nums[v]<0)
+        {
+            repeat=abs(nums[i]);
+        }
+        else
+        nums[v]=-1 * nums[v];
+    }
+   
+    // find out the missing element , there will be one positive value
+   
+    for(int i=0;i<n;i++)
+    {
+        if(nums[i]>0)
+        {
+            missing = i+1;
+        }
+    }
+   
+   
+    return {repeat , missing };
+     
+}
