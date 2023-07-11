@@ -1,0 +1,19 @@
+int maxMeetings(int start[], int end[], int n)
+    {
+    vector<pair<int,int>>vec;
+    int count=0,check=-1;
+
+     for(int i=0;i<n;i++){
+        vec.push_back({end[i],start[i]});
+     }
+     sort(vec.begin(),vec.end());
+     for(auto i:vec){
+         
+       if(i.second>check){
+           count++;
+           check=i.first;
+       }
+     }
+     
+     return count;
+    }
