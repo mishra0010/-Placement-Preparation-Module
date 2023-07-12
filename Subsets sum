@@ -1,0 +1,20 @@
+void fun(int i ,int n, int sum, vector<int> arr, vector<int>&ans)
+    {
+        if(i<n)
+        {
+            fun(i+1,n,sum,arr,ans);
+            fun(i+1,n,sum+arr[i],arr,ans);
+        }
+        else
+        {
+            ans.push_back(sum);
+        }
+    }
+    vector<int> subsetSums(vector<int> arr, int n)
+    {
+        sort(arr.begin(),arr.end());
+        vector<int>ans;
+        
+        fun(0,n,0,arr,ans);
+        return ans ;
+    }
