@@ -1,0 +1,26 @@
+class Solution {
+public:
+    vector <vector <string>> ans;
+    void solve(int n, int row, int colMask, int leftDiagMask, int rightDiagMask, vector <string> &board) {
+        if (row == n) {
+            ans.push_back(board);
+            return;
+        }
+        int rowState = (colMask | leftDiagMask | rightDiagMask) & ((1 << n) - 1);
+        int safePos = rowState ^ ((1 << n) - 1);
+        while (safePos) {
+            int queenPos = safePos & (-safePos);
+            safePos -= queenPos;
+            if (!(queenPos & rowState)) {
+                board[row][log2(queenPos)] = 'Q';
+                solve(n, row + 1, colMask | queenPos, (leftDiagMask | queenPos) << 1, (rightDiagMask | queenPos) >> 1, board);
+                board[row][log2(queenPos)] = '.';
+            }
+        }
+    }
+    vector<vector<string>> solveNQueens(int n) {
+        vector <string> board(n, string (n, '.'));
+        solve(n, 0, 0, 0, 0, board);
+        return ans;
+    }
+};
