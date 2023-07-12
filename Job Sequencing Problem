@@ -1,0 +1,38 @@
+
+srai86825
+6 days ago
+
+C++ Easy Greedy Solution
+
+ 
+
+bool myComp(const Job a,const Job b)
+{
+    return a.profit>b.profit;
+}
+class Solution 
+{
+    public:
+    vector<int> JobScheduling(Job arr[], int n) 
+    { 
+        vector<int>res(2,0);
+        vector<bool>slot(n,true);
+        
+        sort(arr,arr+n,myComp);
+        
+        for(int i=0;i<n;i++)
+        {
+            int ind=arr[i].dead-1;
+            
+            while(ind>=0 && !slot[ind])
+            {
+                ind--;
+            }
+            if(ind<0) continue;
+            slot[ind]=false;
+            res[0]++;
+            res[1]+=arr[i].profit;
+        }
+        return res;
+    } 
+};
