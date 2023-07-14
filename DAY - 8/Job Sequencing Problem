@@ -1,11 +1,4 @@
 
-srai86825
-6 days ago
-
-C++ Easy Greedy Solution
-
- 
-
 bool myComp(const Job a,const Job b)
 {
     return a.profit>b.profit;
