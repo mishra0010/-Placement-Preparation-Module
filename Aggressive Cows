@@ -1,0 +1,38 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+int main()
+{
+    int t;
+    cin>>t;
+    while(t--){
+        int p,l;
+        cin>>p>>l;
+        pair<int,int> c[l];
+        for(int i=0;i<l;i++){
+            int ci;
+           cin>>ci;
+           c[i]={ci,0};
+        }
+        int b=0,e=0;
+        for(int a=0;a>=0;a++){
+            for(int i=0;i<l;i++){
+               if((c[i].first)*((c[i].second)+1)*((c[i].second)+2)/2==a){
+                   c[i].second++;
+                   b++;
+                   if(b==p){
+                       cout<<a<<endl;
+                       e=1;
+                       break;
+
+                   }
+               }
+           }
+           if(e==1){
+                break;
+           }
+       }
+
+    }
+     return 0;
+}
