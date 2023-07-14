@@ -1,0 +1,17 @@
+int maxMeetings(int start[], int end[], int n)
+    {
+        vector<pair<int,int>>vp;
+        for(int i = 0; i < n; i++){
+            vp.push_back({end[i], start[i]});
+        }
+        sort(vp.begin(), vp.end());
+        int i = 0, j = 1, ans = 1;
+        while(i < n && j < n){
+            if(vp[j].second > vp[i].first){
+                ans++;
+                i = j;
+            }
+            j++;
+        }
+        return ans;
+    }
