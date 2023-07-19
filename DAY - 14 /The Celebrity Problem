@@ -1,0 +1,38 @@
+int findCelebrity(int n) {
+    stack<int>st;
+    // first put all the persons into the stack; 
+    for(int i=0; i<n; i++)
+    {
+        st.push(i);
+    }
+    while(st.size() >1)
+    {
+        // may be 'a' or may be 'b' be the celebrity
+        int a = st.top();
+        st.pop();
+        int b = st.top();
+        st.pop();
+        if(knows(a,b))
+        {
+            st.push(b);
+        }
+        else{
+            st.push(a);
+        }
+    }
+    // the last remaining person is the potential candidate
+    int potentialPerson= st.top();
+    // to confirm if he is the potential candidate
+    for(int i=0; i<n; i++)
+    {
+        if(knows(potentialPerson,i))
+        {
+            return -1;
+        }
+        if(i != potentialPerson && !knows(i,potentialPerson))
+        {
+            return -1;
+        }
+    }
+    return  potentialPerson;
+}
