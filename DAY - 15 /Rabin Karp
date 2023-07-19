@@ -1,0 +1,39 @@
+class Solution {
+public:
+    void filllps(vector<int> &lps,string B){
+        lps[0] = 0;
+        int len = 0;
+
+        for(int i=1; i<B.size();){
+            if(B[i]==B[len]) {
+              len++;
+              lps[i++] = len; 
+            }
+            else {
+                if(len == 0) lps[i++] = len;
+                else len = lps[len-1];
+            }
+        }
+    }
+    int repeatedStringMatch(string A, string B) {
+        int a = A.size(), b = B.size();
+        vector<int>lps(b,0);
+        filllps(lps,B);
+
+        for(int i=0,j=0;i<a;){
+            if(B[j]==A[(i+j) % a]) j++;
+            if(j==b){
+                if((i+j) % a) return (i+j) / a+1;
+                else return (i+j) / a;
+            }
+            else if(i<a && B[j]!=A[(i+j) % a]) {
+               if(j!=0){
+                    i += (j-lps[j-1]);
+                j = lps[j-1];
+               }
+               else i++;
+            }
+        }
+       return -1;
+    }
+};
