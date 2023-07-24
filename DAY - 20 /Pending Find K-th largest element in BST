@@ -1,0 +1,19 @@
+void reverseInorderTraversal(Node* root, int& k, int& result) {
+        if(root==NULL || k==0){
+            return ;
+        }
+        reverseInorderTraversal(root->right,k,result);
+        k--;
+        if(k==0){
+           result=root->data;
+           return;
+        }
+        reverseInorderTraversal(root->left,k,result);
+        
+    }
+    int kthLargest(Node *root, int K)
+    {
+        int result=-1; 
+        reverseInorderTraversal(root,K,result);
+        return result;
+    }
