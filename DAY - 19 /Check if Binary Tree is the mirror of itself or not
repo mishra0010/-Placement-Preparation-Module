@@ -1,0 +1,19 @@
+class Solution {
+    // Function to convert a binary tree into its mirror tree.
+    void mirror(Node node) {
+        // Your code here
+        Mirror(node);
+    }
+    Node Mirror(Node node)
+    {
+        if(node==null)
+        {
+            return null;
+        }
+        Node rightsubtree=Mirror(node.right);
+        Node leftsubtree=Mirror(node.left);
+        node.left=rightsubtree;
+        node.right=leftsubtree;
+        return node;
+    }
+}
