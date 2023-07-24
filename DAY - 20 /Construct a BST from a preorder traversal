@@ -1,0 +1,41 @@
+
+
+class Solution
+{
+public:
+   
+    TreeNode *solve(vector<int> &preorder, int start, int end){
+        if (start > end) return NULL; // BASE CASE
+     
+        if (start == end){    // IF ONLY ONE NODE 
+            TreeNode *root = new TreeNode(preorder[start]);
+            return root;
+        }
+
+        // CREATE ROOT NODE 
+        TreeNode *root = new TreeNode(preorder[start]);
+
+        int left_indx = -1, right_indx = end+1,value = preorder[start] ;
+         
+         // SPLIT THE ARRAY INTO TWO PART 
+        // FIND GREATEST NODE && LOWEST NODE FROM THE ROOT NODE   
+ 
+        for(int i = start; i <= end; i++){
+          if (preorder[i] > value && right_indx == end+1) right_indx = i;
+          else if (preorder[i] < value && left_indx == -1) left_indx = i;
+        }
+
+       // IF WE HAVE LOWEST NODE FROM THE ROOT NODE THEN SOLVE LEFT PART
+        if (left_indx != -1) root->left = solve(preorder, left_indx, right_indx-1); 
+    
+        // IF WE HAVE GREATER NODE FROM THE ROOT NODE THEN SOLVE RIGHT PART
+        if (right_indx != end+1) root->right = solve(preorder, right_indx, end);   
+
+        return root; // RETURN ROOT
+    }
+    TreeNode *bstFromPreorder(vector<int> &preorder)
+    {
+        int n = preorder.size() - 1;
+        return solve(preorder, 0, n);
+    }
+};
