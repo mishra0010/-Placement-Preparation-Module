@@ -1,0 +1,34 @@
+vector<int> leftView(Node *root)
+{
+    
+     queue<Node*> visited;
+    vector<int> res;
+    
+    visited.push(root);
+    
+    
+    
+    while(!visited.empty()){
+        
+        int s=visited.size();
+        
+        for(int i=0;i<s;i++){
+            
+            Node *node=visited.front();
+       
+            if(i==0){
+                res.push_back(node->data);
+            }
+           
+            if(node->left!=NULL) visited.push(node->left);
+            if(node->right!=NULL) visited.push(node->right);
+            visited.pop();
+        }
+       
+        
+    }
+    
+    return res;
+  
+
+}
