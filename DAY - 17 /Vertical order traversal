@@ -1,0 +1,46 @@
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ * };
+ */
+class Solution {
+public:
+    vector<vector<int>> verticalTraversal(TreeNode* root) {
+        map < int , map < int , multiset < int >>> mpp;
+        queue < pair < TreeNode* , pair < int , int >>> q;
+        vector < vector <int >> ans;
+        if(root == NULL) return ans;
+        q.push({root , {0 , 0}});
+        while(!q.empty()){
+            auto top = q.front();
+            q.pop();
+            TreeNode * temp = top.first;
+            int vertical = top.second.first;
+            int level = top.second.second;
+            mpp[vertical][level].insert(temp -> val);
+            if(temp -> left != NULL){
+                q.push({temp -> left , {vertical - 1 , level + 1} });
+            }
+            if(temp -> right != NULL){
+                q.push({temp -> right , {vertical + 1 , level + 1} });
+            }
+        }
+        //Your code here
+        for(auto it : mpp){
+            vector < int > res;
+            for(auto j : it.second){
+                res.insert(res.end() , j.second.begin() , j.second.end());
+            }
+            ans.push_back(res);
+
+            
+        }
+        return ans;
+    }
+};
