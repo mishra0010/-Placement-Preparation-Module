@@ -1,0 +1,39 @@
+void findPreSuc(Node* root, Node*& pre, Node*& suc, int key)
+    {
+        // Your code goes here
+        pre = NULL, suc = NULL;
+        stack<Node*> st;
+        bool changed = false;
+        Node *ptr = root, *prev = NULL;
+        
+        while(true){
+
+            if(ptr){
+                st.push(ptr);
+                ptr = ptr->left;
+            }
+            else{
+                if(st.empty())
+                    return ;
+                ptr = st.top();
+                st.pop();
+                
+                if(ptr->key == key){
+                    pre = prev;
+                    changed = true;
+                }
+                else if(ptr->key > key ){
+                    if(!pre)
+                        pre = prev;
+                    suc = ptr;
+                    break;
+                }
+                
+                if(changed == false)
+                    pre = ptr;     
+                prev = ptr;
+                ptr = ptr->right;
+            }
+        }
+        return ;
+    }
